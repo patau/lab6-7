@@ -9,7 +9,7 @@ import (
 	"log"
 	"net/http"
 	"os"
-	"strconv"
+	//"strconv"
 
 	// this allows us to run our web server
 	"github.com/gin-gonic/gin"
@@ -107,7 +107,7 @@ func main() {
 		// once you've added all the columns in, close the header
 		table += "</thead><tbody>"
 		var id int    // <--- EDIT THESE LINES
-		var name string //<--- ^^^^
+		var name string 	//<--- ^^^^
 		// columns
 		for rows.Next() {
 			// rows.Scan() // put columns here prefaced with &
