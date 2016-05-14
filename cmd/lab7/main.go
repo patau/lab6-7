@@ -58,7 +58,7 @@ func main() {
 	router.GET("/query1", func(c *gin.Context) {
 		table := "<table class='table'><thead><tr>"
 		// put your query here
-		rows, err := db.Query("SELECT * FROM table1") // <--- EDIT THIS LINE
+		rows, err := db.Query("SELECT title FROM Song JOIN favorite ON song.songId = favorite.songId JOIN person ON person.personId = favorite.personId WHERE person.firstName = 'Patricia' AND song.title IN (SELECT title FROM song JOIN favorite ON song.songId = favorite.songId JOIN person ON person.personId = favorite.personId WHERE person.firstName = 'Anthony');") // <--- EDIT THIS LINE
 		if err != nil {
 			// careful about returning errors to the user!
 			c.AbortWithError(http.StatusInternalServerError, err)
@@ -74,14 +74,14 @@ func main() {
 		// once you've added all the columns in, close the header
 		table += "</thead><tbody>"
 		// declare all your RETURNED columns here
-		var id int      // <--- EDIT THESE LINES
-		var name string //<--- ^^^^
+		var songName string     // <--- EDIT THESE LINES
+		//var name string //<--- ^^^^
 		for rows.Next() {
 			// assign each of them, in order, to the parameters of rows.Scan.
 			// preface each variable with &
-			rows.Scan(&id, &name) // <--- EDIT THIS LINE
+			rows.Scan(&songName) // <--- EDIT THIS LINE
 			// can't combine ints and strings in Go. Use strconv.Itoa(int) instead
-			table += "<tr><td>" + strconv.Itoa(id) + "</td><td>" + name + "</td></tr>" // <--- EDIT THIS LINE
+			table += "<tr><td>" + songName + "</td></tr>" // <--- EDIT THIS LINE
 		}
 		// finally, close out the body and table
 		table += "</tbody></table>"
@@ -91,7 +91,7 @@ func main() {
 	router.GET("/query2", func(c *gin.Context) {
 		table := "<table class='table'><thead><tr>"
 		// put your query here
-		rows, err := db.Query("SELECT * FROM table1") // <--- EDIT THIS LINE
+		rows, err := db.Query("SELECT min(song.length) FROM song WHERE song.length > ALL (SELECT age * 10 FROM artist);") // <--- EDIT THIS LINE
 		if err != nil {
 			// careful about returning errors to the user!
 			c.AbortWithError(http.StatusInternalServerError, err)
@@ -106,6 +106,8 @@ func main() {
 		}
 		// once you've added all the columns in, close the header
 		table += "</thead><tbody>"
+		var id int    // <--- EDIT THESE LINES
+		var name string //<--- ^^^^
 		// columns
 		for rows.Next() {
 			// rows.Scan() // put columns here prefaced with &
