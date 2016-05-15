@@ -134,11 +134,12 @@ func main() {
 		}
 		// once you've added all the columns in, close the header
 		table += "</thead><tbody>"
-		var songs string
+		var song string
+		var name string
 		// columns
 		for rows.Next() {
-			rows.Scan(&songs) // put columns here prefaced with &
-			table += "<tr><td>" + songs + "</td></tr>" // <--- EDIT THIS LINE
+			rows.Scan(&song, &name) // put columns here prefaced with &
+			table += "<tr><td>" + song + "</td><td>" + name + "</td></tr>" // <--- EDIT THIS LINE
 		}
 		// finally, close out the body and table
 		table += "</tbody></table>"
