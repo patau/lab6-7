@@ -10,7 +10,6 @@ import (
 	"net/http"
 	"os"
 	"strconv"
-	"fmt"
 	// this allows us to run our web server
 	"github.com/gin-gonic/gin"
 	// this lets us connect to Postgres DB's
@@ -24,8 +23,6 @@ var (
 )
 
 func main() {
-	fmt.Printf(os.Getenv("PORT"))
-
 	port := os.Getenv("PORT")
 	if port == "" {
 		log.Fatal("$PORT must be set")
@@ -76,12 +73,12 @@ func main() {
 		// once you've added all the columns in, close the header
 		table += "</thead><tbody>"
 		// declare all your RETURNED columns here
-		var id int      // <--- EDIT THESE LINES
+		//var id int      // <--- EDIT THESE LINES
 		var name string //<--- ^^^^
 		for rows.Next() {
 			// assign each of them, in order, to the parameters of rows.Scan.
 			// preface each variable with &
-			rows.Scan(&id, &name) // <--- EDIT THIS LINE
+			rows.Scan(&name) // <--- EDIT THIS LINE
 			// can't combine ints and strings in Go. Use strconv.Itoa(int) instead
 			table += "<tr><td>" + strconv.Itoa(id) + "</td><td>" + name + "</td></tr>" // <--- EDIT THIS LINE
 		}
