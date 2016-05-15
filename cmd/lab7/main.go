@@ -137,8 +137,8 @@ func main() {
 		var songs string
 		// columns
 		for rows.Next() {
-			// rows.Scan() // put columns here prefaced with &
-			table += "<tr><td>" + song + "</td></tr>" // <--- EDIT THIS LINE
+			rows.Scan(&songs) // put columns here prefaced with &
+			table += "<tr><td>" + songs + "</td></tr>" // <--- EDIT THIS LINE
 		}
 		// finally, close out the body and table
 		table += "</tbody></table>"
