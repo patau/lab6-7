@@ -9,7 +9,7 @@ import (
 	"log"
 	"net/http"
 	"os"
-	"strconv"
+	// "strconv"
 
 	// this allows us to run our web server
 	"github.com/gin-gonic/gin"
@@ -38,7 +38,7 @@ func main() {
 	}
 	router := gin.New()
 	router.Use(gin.Logger())
-	router.LoadHTMLGlob("html/*")
+	router.LoadHTMLGlob("../../html/*")
 	router.Static("/static", "static")
 
 	router.GET("/", func(c *gin.Context) {
